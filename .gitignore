@@ -1,18 +1,6 @@
-# Python cache
 __pycache__/
 *.py[cod]
-*$py.class
-
-# SQLite databases
-*.db
-*.sqlite3
-
-# Virtual environments
-venv/
-env/
+.env
 .venv/
-
-# IDE and OS
-.vscode/
-.idea/
-.DS_Store
+travel_planner.db
+.pytest_cache/

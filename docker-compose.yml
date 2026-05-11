@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////app/data/travel_planner.db
+      ARTIC_BASE_URL: https://api.artic.edu/api/v1
+      PLACE_CACHE_TTL_SECONDS: 3600
+      REQUEST_TIMEOUT_SECONDS: 10
+    volumes:
+      - ./data:/app/data
