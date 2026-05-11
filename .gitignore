@@ -4,3 +4,5 @@ __pycache__/
 .venv/
 travel_planner.db
 .pytest_cache/
+.vscode/
+.idea/

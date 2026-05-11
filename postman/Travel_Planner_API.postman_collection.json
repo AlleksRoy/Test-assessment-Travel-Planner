@@ -1,0 +1,204 @@
+{
+  "info": {
+    "name": "Travel Planner API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "project_id",
+      "value": "1"
+    },
+    {
+      "key": "place_id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health"
+      }
+    },
+    {
+      "name": "Create project with places",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Chicago Museum Trip\",\n  \"description\": \"Places I want to visit\",\n  \"start_date\": \"2026-06-01\",\n  \"places\": [\n    {\n      \"external_id\": \"129884\",\n      \"notes\": \"Start here\"\n    },\n    {\n      \"external_id\": \"27992\",\n      \"notes\": \"Must see\"\n    }\n  ]\n}"
+        },
+        "url": "{{base_url}}/projects"
+      }
+    },
+    {
+      "name": "List projects",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects?limit=10&offset=0"
+      }
+    },
+    {
+      "name": "List incomplete projects",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects?is_completed=false&limit=10&offset=0"
+      }
+    },
+    {
+      "name": "Search projects",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects?search=Chicago&limit=10&offset=0"
+      }
+    },
+    {
+      "name": "Get project",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects/{{project_id}}"
+      }
+    },
+    {
+      "name": "Update project",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Chicago Museum Trip\",\n  \"description\": \"Updated description\",\n  \"start_date\": \"2026-06-10\"\n}"
+        },
+        "url": "{{base_url}}/projects/{{project_id}}"
+      }
+    },
+    {
+      "name": "Delete project",
+      "request": {
+        "method": "DELETE",
+        "url": "{{base_url}}/projects/{{project_id}}"
+      }
+    },
+    {
+      "name": "Add place to project",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"external_id\": \"28560\",\n  \"notes\": \"Add to route\"\n}"
+        },
+        "url": "{{base_url}}/projects/{{project_id}}/places"
+      }
+    },
+    {
+      "name": "List project places",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects/{{project_id}}/places?limit=10&offset=0"
+      }
+    },
+    {
+      "name": "List visited places",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects/{{project_id}}/places?visited=true&limit=10&offset=0"
+      }
+    },
+    {
+      "name": "Get project place",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/projects/{{project_id}}/places/{{place_id}}"
+      }
+    },
+    {
+      "name": "Update place notes",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notes\": \"Updated personal note\"\n}"
+        },
+        "url": "{{base_url}}/projects/{{project_id}}/places/{{place_id}}"
+      }
+    },
+    {
+      "name": "Mark place visited",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"visited\": true\n}"
+        },
+        "url": "{{base_url}}/projects/{{project_id}}/places/{{place_id}}"
+      }
+    },
+    {
+      "name": "Duplicate place conflict",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"external_id\": \"129884\",\n  \"notes\": \"Duplicate check\"\n}"
+        },
+        "url": "{{base_url}}/projects/{{project_id}}/places"
+      }
+    },
+    {
+      "name": "Invalid external place",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"external_id\": \"999999999999\",\n  \"notes\": \"Should fail\"\n}"
+        },
+        "url": "{{base_url}}/projects/{{project_id}}/places"
+      }
+    }
+  ]
+}
